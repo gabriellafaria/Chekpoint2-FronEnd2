@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do App</title>
+
+  <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
+  <link rel="stylesheet" href="styles/acesso.css">
+  
+</head>
+
+<body>
+  
+  <div class="left">``
+``      <img src="./assets/pessoa-signup.png" alt="">
+  </div>
+  <div class="right">
+    <form>
+      <div class="form-header">
+        <p>To-Do App</p>
+      </div>
+
+      <label>
+        Nome:
+        <input type="text" id="registryName">
+      </label>
+      <small id="nameValidation"></small>
+      <label>
+        Sobrenome:
+        <input type="text" id="registrySurname">
+      </label>
+      <small id="surnameValidation"></small>
+      <label>
+        Email:
+        <input type="email" id="registryEmail">
+      </label>
+      <small id="emailValidation"></small>
+      <label>
+        Senha:
+        <input type="password" id="registryPassword">
+      </label>
+      <small id="passwordValidation"></small>
+      <label>
+        Repetir senha:
+        <input type="password" id="passwordConfirm">
+      </label>
+      <small id="confirmValidation"></small>
+      
+      <button id="registryButton" >Criar conta</button>
+      
+    </form>
+    <div class="ingressar">
+      <a href="index.html">Já possui conta? Acesse aqui</a>
+    </div>
+  </div>
+  
+  <script src="./scripts/validations/utilities.js"></script>
+  <script src="./scripts/singup/singup.js" type="module"></script>
+  <script src="./scripts/singup/events.js" type="module"></script>
+</body>
+
+</html>
