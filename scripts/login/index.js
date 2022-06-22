@@ -9,6 +9,7 @@ let small = document.querySelectorAll('small');
 let emailValidation = document.getElementById("emailValidation");
 let passwordValidation = document.getElementById("passwordValidation");
 
+// initing the button as invalid
 loginButton.style.backgroundColor = "#979292A1";
 loginButton.innerText = "Bloqueado";
 
@@ -17,12 +18,8 @@ let loginObject = {
     password: ""
 };
 
-function validateEmail() {
-    return (loginEmail.value.match(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/)) ? true : false;
-}
-
 function validateLogin(password, email) {
-    if (password && validateEmail(email)) {
+    if (eventsPassword(password) == '' && validateEmail(email) == '') {
         loginButton.removeAttribute("disabled");
         loginButton.style.backgroundColor = "#7898FF";
         loginButton.innerText = "Acessar";
@@ -33,7 +30,7 @@ function validateLogin(password, email) {
     }
 };
 
-loginButton.addEventListener("click", function (evento) {
+loginButton.addEventListener("click", (evento) => {
     if (validateLogin(loginEmail.value, loginPassword.value)) {
         evento.preventDefault();
         loginEmail = normalizeTextBetweenSpaces(loginEmail.value);
@@ -47,27 +44,22 @@ loginButton.addEventListener("click", function (evento) {
     }
 });
 
-loginEmail.addEventListener("keyup", () => {
-    if (!loginEmail.value) {
-        emailValidation.innerText = "Campo obrigatório"
-        loginEmail.style.border = "1px solid #E9554EBB"
-    } else if (!validateEmail(loginEmail.value == true)) {
-        emailValidation.innerText = "E-mail inválido";
-        loginEmail.style.border = "1px solid #E9554EBB";
-       } else {
-        emailValidation.innerText = ""
-        loginEmail.style.border = "1px solid transparent "
-    };
-    validateLogin(loginPassword.value, loginEmail.value);
-});
+// validations in the email -- calling function in the validation folder
+loginEmail.addEventListener('keyup', () => {
+    let call = validateEmail(loginEmail.value);
+    
+    emailValidation.innerText = call;
+    loginEmail.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E'
 
+    validateLogin(loginPassword.value, loginEmail.value); 
+})
+
+// validations in the password  
 loginPassword.addEventListener("keyup", () => {
-    if (loginPassword.value) {
-        passwordValidation.innerText = ""
-        loginPassword.style.border = "1px solid transparent"
-    } else {
-        passwordValidation.innerText = "Campo obrigatório"
-        loginPassword.style.border = "1px solid #E9554EBB"
-    }
+    let call = eventsPassword(loginPassword.value);
+
+    passwordValidation.innerText = call;
+    loginPassword.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+
     validateLogin(loginPassword.value, loginEmail.value);
 });

@@ -14,7 +14,7 @@ let emailValidation = document.getElementById('emailValidation');
 let passwordValidation = document.getElementById('passwordValidation');
 let confirmValidation = document.getElementById('confirmValidation');
 
-// initialize the button block
+// initing the button as invalid
 registryButton.innerText = 'Bloqueado';
 registryButton.style.backgroundColor = '#79745C';
 
