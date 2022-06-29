@@ -180,7 +180,34 @@ a {
 .tarefa .timestamp {
   font-size: .9em;
   color: rgb(134, 134, 134);
+  
+  
+
 }
+
+.delete {
+  height: 2em;
+  background-color: transparent;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.delete:hover {
+  opacity: 1;
+}
+
+/* .edit {
+  height: 2em;
+  width: 2em;
+  background-color: transparent;
+  margin-left: 1em;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.edit:hover {
+  opacity: 1;
+} */
 
 /* Tarefas terminadas ----------------------------------------------------------- */
 

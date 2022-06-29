@@ -20,8 +20,8 @@ registryButton.style.backgroundColor = '#79745C';
 
 // declaring the model object
 let registryObject = {
-    name: "",
-    surname:"",
+    firstName: "",
+    lastName:"",
     email: "",
     password: ""
 };
@@ -39,13 +39,36 @@ registryButton.addEventListener("click", (event) => {
         passwordConfirm = normalizeTextBetweenSpaces(passwordConfirm.value);
 
         // attributing the objects 
-        registryObject.name = registryName;
-        registryObject.surname = registrySurname;
+        registryObject.firstName = registryName;
+        registryObject.lastName = registrySurname;
         registryObject.email = registryEmail;
         registryObject.password = registryPassword;
 
-        // transform object JS in JSON 
-        let registryObjectJSON = JSON.stringify(registryObject);
-        console.log(registryObjectJSON);
+        register();
     }
 });
+
+function register(){
+    fetch('https://ctd-todo-api.herokuapp.com/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registryObject)
+        }).then(response => response.json())
+            .then(data => {
+                if (data.jwt) {
+                    localStorage.setItem('token', data.jwt);
+                    window.location.href = "./tarefas.html";
+                } else {
+                    alert(data);
+                    //Verificar uma forma de limpar o formulario
+                    //sem recarregar a pagina
+                    window.location.href = "./signup.html";
+                }
+            }
+        ).catch(error => {
+            console.log(error);
+        }
+    );
+}
