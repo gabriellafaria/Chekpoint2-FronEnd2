@@ -33,11 +33,11 @@ function validateLogin(password, email) {
 
 
 registryButton.addEventListener("click", (evento) => {
+    mostrarSpinner()
     evento.preventDefault();
     loginObject.email = registryEmail.value;
     loginObject.password = registryPassword.value;
     authentication();
-
 });
 
 // validations in the email -- calling function in the validation folder
@@ -76,18 +76,25 @@ function authentication() {
         body: JSON.stringify(loginObject)
     }
     ).then(response => {
+        ocultarSpinner()
         alert(statusObject[response.status])
-
+        
         return response
+        
     }
     ).then(response => response.json()
     ).then(data => {
         if (data.jwt) {
             sessionStorage.setItem('token', data.jwt);
+            
             window.location.href = "./tarefas.html";
         }
+        
     }
     ).catch(error => {
+        
         console.log(error)
     })
+
+    
 }

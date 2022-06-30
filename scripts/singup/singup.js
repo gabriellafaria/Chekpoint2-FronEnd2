@@ -28,6 +28,8 @@ let registryObject = {
 
 // creating the event for the button
 registryButton.addEventListener("click", (event) => {
+
+    mostrarSpinner()
     if (registryName.value, registrySurname.value, registryEmail.value, registryPassword.value, passwordConfirm.value) {
         event.preventDefault();
 
@@ -69,6 +71,7 @@ function register() {
         .then(data => {
             if (data.jwt) {
                 localStorage.setItem('token', data.jwt);
+                ocultarSpinner()
                 window.location.href = "./tarefas.html";
             } else {
                 //Verificar uma forma de limpar o formulario sem recarregar a pagina
@@ -76,6 +79,7 @@ function register() {
             }
         }
         ).catch(error => {
+            ocultarSpinner()
             console.log(error);
         }
         );
