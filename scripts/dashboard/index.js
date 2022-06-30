@@ -2,6 +2,7 @@ let pendingTask = document.getElementById('pendingTask');
 let taskDescription = document.getElementById('novaTarefa');
 let taskButton = document.getElementById('addTask');
 
+let token = sessionStorage.getItem('token')
 
 let task = {
     description: "",
@@ -13,29 +14,35 @@ taskButton.addEventListener('click', addTask);
 function addTask(e) {
     e.preventDefault();
     task.description = taskDescription.value;
-    // console.log(task);
-     fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
-        method: 'POST',
-        headers: {
-            'Authorization': `${sessionStorage.getItem('token')}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(task)
-    })
-        .then(response => response.json())
-        .then(_data => {
-            pendingTask.innerHTML = "";
-            init();
+
+    if (!taskDescription.value) {
+        alert("Insira uma descrição da tarefa")
+    } else if (taskDescription.value.length < 5) {
+        alert("A descrição da tarefa tem que ter mais de cinco letras")
+    } else {
+        fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+            method: 'POST',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
         })
-    
+            .then(response => response.json())
+            .then(_data => {
+                pendingTask.innerHTML = "";
+                init();
+            })
+    };
 }
 
- function deleteTask(e) {
+function deleteTask(e) {
     let id = e;
-     fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+    fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
         method: 'DELETE',
         headers: {
-            'Authorization': `${sessionStorage.getItem('token')}`
+            'Authorization': token
+            // 'Authorization': token
         }
     })
         .then(response => response.json())
@@ -50,7 +57,7 @@ async function init() {
     await fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
         method: 'GET',
         headers: {
-            'Authorization': `${sessionStorage.getItem('token')}`
+            'Authorization': token
         }
     })
         .then(response => response.json())
@@ -77,14 +84,37 @@ async function init() {
             //     alert("Sem permissão de acesso!")
             //     window.location.href = './index.html'
             // } else {
-                
+
             // }
-            
+
         })
 }
 
 init();
 
 
+onload = async function usersData() {
+    let requestConfig = {
+        headers: {
+            "Authorization": token
+        }
+    };
 
+    try {
+        let response = await fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig)
+        if (response.status == 200) {
+            let convert = await response.json();
+            displayUserName(convert)
+        } else {
+            throw "Problema ao buscar o usuário"
+        }
 
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+function displayUserName(object) {
+    let userName = document.getElementById("userName");
+    userName.innerText = `${object.firstName} ${object.lastName}`;
+};
