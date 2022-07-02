@@ -1,6 +1,6 @@
 const loginButton = document.getElementById('loginButton');
 
-// select all elements obrigatorys
+// select all required elements
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
 

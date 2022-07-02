@@ -23,7 +23,7 @@ function validatePassword(password, passwordConfirm) {
   return (password !== passwordConfirm) ? 'Senhas incompatíveis' : '';
 }
 
-function obrigatory(received) {
+function required(received) {
   return (!received) ? 'Campo obrigatório' : '';
 }
 

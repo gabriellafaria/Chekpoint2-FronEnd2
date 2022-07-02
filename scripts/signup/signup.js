@@ -1,6 +1,6 @@
 const registryButton = document.getElementById('registryButton');
 
-// select all elements obrigatorys
+// select all required elements
 let registryName = document.getElementById('registryName');
 let registrySurname = document.getElementById('registrySurname');
 let registryEmail = document.getElementById('registryEmail');

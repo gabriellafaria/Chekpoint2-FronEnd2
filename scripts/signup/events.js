@@ -1,6 +1,6 @@
 // function for all the validations and enable the button
 function validateRegistry(name, surname, password, passwordConfirm, email) {
-  if (obrigatory(name) == '' && obrigatory(surname) == '' && eventsPassword(password) == '' && validatePassword(password, passwordConfirm) == '' && validateEmail(email) == '') {
+  if (required(name) == '' && required(surname) == '' && eventsPassword(password) == '' && validatePassword(password, passwordConfirm) == '' && validateEmail(email) == '') {
     registryButton.removeAttribute('disabled');
     registryButton.style.backgroundColor = '#0AA9FF';
     registryButton.innerText = 'Acessar';
@@ -13,7 +13,7 @@ function validateRegistry(name, surname, password, passwordConfirm, email) {
 
 // adding events on the fields of the form
 registryName.addEventListener('keyup', () => {
-  const call = obrigatory(registryName.value);
+  const call = required(registryName.value);
 
   nameValidation.innerHTML = call;
   registryName.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
@@ -22,7 +22,7 @@ registryName.addEventListener('keyup', () => {
 });
 
 registrySurname.addEventListener('keyup', () => {
-  const call = obrigatory(registrySurname.value);
+  const call = required(registrySurname.value);
 
   surnameValidation.innerHTML = call;
   registrySurname.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
