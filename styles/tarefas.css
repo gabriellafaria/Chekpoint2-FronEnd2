@@ -61,6 +61,18 @@ a {
   z-index: 20;
 }
 
+.input-validation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-validation small{
+  font-size: 10px;
+  font-weight: 700;
+  color: red;
+}
+
 .nova-tarefa input[type=text] {
   border: none;
   flex: 1;
@@ -90,7 +102,7 @@ a {
   cursor: pointer;
 }
 
-.nova-tarefa button:hover {
+.nova-tarefa button:enabled {
   opacity: 1;
 }
 
@@ -175,6 +187,7 @@ a {
 
 .tarefa .nome {
   color: rgb(95, 95, 95);
+  flex-grow: 1;
 }
 
 .tarefa .timestamp {
@@ -190,24 +203,25 @@ a {
   background-color: transparent;
   opacity: .5;
   cursor: pointer;
+  margin-left: 2.5em;
 }
 
 .delete:hover {
   opacity: 1;
 }
 
-/* .edit {
+.edit {
   height: 2em;
   width: 2em;
   background-color: transparent;
-  margin-left: 1em;
+  margin-left: 2.5em;
   opacity: .5;
   cursor: pointer;
 }
 
 .edit:hover {
   opacity: 1;
-} */
+}
 
 /* Tarefas terminadas ----------------------------------------------------------- */
 
