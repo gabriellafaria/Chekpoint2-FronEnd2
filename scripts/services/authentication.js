@@ -16,8 +16,8 @@ function authentication(loginData) {
     ocultarSpinner();
     alert(statusObject[response.status]);
 
-    return response;
-  }).then((response) => response.json()).then((data) => {
+    return response.json();
+  }).then((data) => {
     if (data.jwt) {
       sessionStorage.setItem('token', data.jwt);
 
