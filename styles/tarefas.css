@@ -251,6 +251,15 @@ a {
   text-decoration: line-through;
 }
 
+/* .tarefas__terminada .descricao .nome {
+  color: grey;
+  text-decoration: line-through;
+  
+}
+.tarefas__terminada .descricao {
+  background-color: rgb(228, 228, 228);
+} */
+
 #skeleton .descricao{
   background-color: rgb(189, 189, 189);
 }
