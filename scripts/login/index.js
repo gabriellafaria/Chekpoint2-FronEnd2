@@ -34,7 +34,7 @@ loginButton.addEventListener('click', (evento) => {
   evento.preventDefault();
   loginObject.email = loginEmail.value;
   loginObject.password = loginPassword.value;
-  authentication();
+  authentication(loginObject);
 });
 
 // validations in the email -- calling function in the validation folder
@@ -56,34 +56,3 @@ loginPassword.addEventListener('keyup', () => {
 
   validateLogin(loginPassword.value, loginEmail.value);
 });
-
-const statusObject = {
-  201: 'Login realizado com sucesso!',
-  400: 'Senha incorreta!',
-  404: 'Usuario não existe',
-  500: 'Erro de servidor',
-};
-
-function authentication() {
-  fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(loginObject),
-  }).then((response) => {
-    ocultarSpinner();
-    alert(statusObject[response.status]);
-
-    return response;
-  }).then((response) => response.json()).then((data) => {
-    if (data.jwt) {
-      sessionStorage.setItem('token', data.jwt);
-
-      window.location.href = './tarefas.html';
-    }
-  })
-    .catch((error) => {
-      console.log(error);
-    });
-}
