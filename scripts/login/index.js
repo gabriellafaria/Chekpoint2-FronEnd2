@@ -1,8 +1,8 @@
-const registryButton = document.getElementById('loginButton');
+const loginButton = document.getElementById('loginButton');
 
 // select all elements obrigatorys
-const registryEmail = document.getElementById('loginEmail');
-const registryPassword = document.getElementById('loginPassword');
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
 
 // import small elements for validations
 const emailValidation = document.getElementById('emailValidation');
@@ -29,16 +29,16 @@ function validateLogin(password, email) {
   }
 }
 
-registryButton.addEventListener('click', (evento) => {
+loginButton.addEventListener('click', (evento) => {
   mostrarSpinner();
   evento.preventDefault();
-  loginObject.email = registryEmail.value;
-  loginObject.password = registryPassword.value;
+  loginObject.email = loginEmail.value;
+  loginObject.password = loginPassword.value;
   authentication();
 });
 
 // validations in the email -- calling function in the validation folder
-registryEmail.addEventListener('keyup', () => {
+loginEmail.addEventListener('keyup', () => {
   const call = validateEmail(loginEmail.value);
 
   emailValidation.innerText = call;
@@ -48,7 +48,7 @@ registryEmail.addEventListener('keyup', () => {
 });
 
 // validations in the password
-registryPassword.addEventListener('keyup', () => {
+loginPassword.addEventListener('keyup', () => {
   const call = eventsPassword(loginPassword.value);
 
   passwordValidation.innerText = call;
