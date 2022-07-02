@@ -45,40 +45,6 @@ registryButton.addEventListener('click', (event) => {
     registryObject.email = registryEmail;
     registryObject.password = registryPassword;
 
-    register();
+    register(registryObject);
   }
 });
-
-const statusObject = {
-  200: 'Cadastro realizado com sucesso!',
-  400: 'Usuario já existe ou Dados imcompletos!',
-  500: 'Erro de servidor!',
-};
-
-function register() {
-  fetch('https://ctd-todo-api.herokuapp.com/v1/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(registryObject),
-  }).then((response) => {
-    alert(statusObject[response.status]);
-    return response;
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.jwt) {
-        localStorage.setItem('token', data.jwt);
-        ocultarSpinner();
-        window.location.href = './tarefas.html';
-      } else {
-        // Verificar uma forma de limpar o formulario sem recarregar a pagina
-        window.location.href = './signup.html';
-      }
-    })
-    .catch((error) => {
-      ocultarSpinner();
-      console.log(error);
-    });
-}
