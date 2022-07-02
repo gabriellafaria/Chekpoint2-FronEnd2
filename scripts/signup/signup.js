@@ -7,13 +7,6 @@ let registryEmail = document.getElementById('registryEmail');
 let registryPassword = document.getElementById('registryPassword');
 let passwordConfirm = document.getElementById('passwordConfirm');
 
-// import small elements for validations
-const nameValidation = document.getElementById('nameValidation');
-const surnameValidation = document.getElementById('surnameValidation');
-const emailValidation = document.getElementById('emailValidation');
-const passwordValidation = document.getElementById('passwordValidation');
-const confirmValidation = document.getElementById('confirmValidation');
-
 // initing the button as invalid
 registryButton.innerText = 'Bloqueado';
 registryButton.style.backgroundColor = '#79745C';

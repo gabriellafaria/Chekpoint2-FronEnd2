@@ -1,3 +1,10 @@
+// import small elements for validations
+const nameValidation = document.getElementById('nameValidation');
+const surnameValidation = document.getElementById('surnameValidation');
+const emailValidation = document.getElementById('emailValidation');
+const passwordValidation = document.getElementById('passwordValidation');
+const confirmValidation = document.getElementById('confirmValidation');
+
 // function for all the validations and enable the button
 function validateRegistry(name, surname, password, passwordConfirm, email) {
   if (required(name) == '' && required(surname) == '' && eventsPassword(password) == '' && validatePassword(password, passwordConfirm) == '' && validateEmail(email) == '') {
