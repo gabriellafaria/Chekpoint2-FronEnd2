@@ -1,4 +1,4 @@
-let registryButton = document.getElementById('registryButton');
+const registryButton = document.getElementById('registryButton');
 
 // select all elements obrigatorys
 let registryName = document.getElementById('registryName');
@@ -8,81 +8,77 @@ let registryPassword = document.getElementById('registryPassword');
 let passwordConfirm = document.getElementById('passwordConfirm');
 
 // import small elements for validations
-let nameValidation = document.getElementById('nameValidation');
-let surnameValidation = document.getElementById('surnameValidation');
-let emailValidation = document.getElementById('emailValidation');
-let passwordValidation = document.getElementById('passwordValidation');
-let confirmValidation = document.getElementById('confirmValidation');
+const nameValidation = document.getElementById('nameValidation');
+const surnameValidation = document.getElementById('surnameValidation');
+const emailValidation = document.getElementById('emailValidation');
+const passwordValidation = document.getElementById('passwordValidation');
+const confirmValidation = document.getElementById('confirmValidation');
 
 // initing the button as invalid
 registryButton.innerText = 'Bloqueado';
 registryButton.style.backgroundColor = '#79745C';
 
 // declaring the model object
-let registryObject = {
-    firstName: "",
-    lastName:"",
-    email: "",
-    password: ""
+const registryObject = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
 };
 
 // creating the event for the button
-registryButton.addEventListener("click", (event) => {
+registryButton.addEventListener('click', (event) => {
+  mostrarSpinner();
+  if (registryName.value, registrySurname.value, registryEmail.value, registryPassword.value, passwordConfirm.value) {
+    event.preventDefault();
 
-    mostrarSpinner()
-    if (registryName.value, registrySurname.value, registryEmail.value, registryPassword.value, passwordConfirm.value) {
-        event.preventDefault();
+    // normalization all the fields
+    registryName = normalizeTextBetweenSpaces(registryName.value);
+    registrySurname = normalizeTextBetweenSpaces(registrySurname.value);
+    registryEmail = normalizeTextBetweenSpaces(registryEmail.value);
+    registryPassword = normalizeTextBetweenSpaces(registryPassword.value);
+    passwordConfirm = normalizeTextBetweenSpaces(passwordConfirm.value);
 
-        // normalization all the fields
-        registryName = normalizeTextBetweenSpaces(registryName.value); 
-        registrySurname = normalizeTextBetweenSpaces(registrySurname.value);
-        registryEmail = normalizeTextBetweenSpaces(registryEmail.value);
-        registryPassword = normalizeTextBetweenSpaces(registryPassword.value);
-        passwordConfirm = normalizeTextBetweenSpaces(passwordConfirm.value);
+    // attributing the objects
+    registryObject.firstName = registryName;
+    registryObject.lastName = registrySurname;
+    registryObject.email = registryEmail;
+    registryObject.password = registryPassword;
 
-        // attributing the objects 
-        registryObject.firstName = registryName;
-        registryObject.lastName = registrySurname;
-        registryObject.email = registryEmail;
-        registryObject.password = registryPassword;
-
-        register();
-    }
+    register();
+  }
 });
 
-let statusObject = {
-    200: 'Cadastro realizado com sucesso!',
-    400: 'Usuario já existe ou Dados imcompletos!',
-    500: 'Erro de servidor!'
-}
+const statusObject = {
+  200: 'Cadastro realizado com sucesso!',
+  400: 'Usuario já existe ou Dados imcompletos!',
+  500: 'Erro de servidor!',
+};
 
 function register() {
-    fetch('https://ctd-todo-api.herokuapp.com/v1/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(registryObject)
-    }).then(response => {
-        alert(statusObject[response.status])
-        return response
+  fetch('https://ctd-todo-api.herokuapp.com/v1/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(registryObject),
+  }).then((response) => {
+    alert(statusObject[response.status]);
+    return response;
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.jwt) {
+        localStorage.setItem('token', data.jwt);
+        ocultarSpinner();
+        window.location.href = './tarefas.html';
+      } else {
+        // Verificar uma forma de limpar o formulario sem recarregar a pagina
+        window.location.href = './signup.html';
+      }
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.jwt) {
-                localStorage.setItem('token', data.jwt);
-                ocultarSpinner()
-                window.location.href = "./tarefas.html";
-            } else {
-                //Verificar uma forma de limpar o formulario sem recarregar a pagina
-                window.location.href = "./signup.html";
-            }
-        }
-        ).catch(error => {
-            ocultarSpinner()
-            console.log(error);
-        }
-        );
+    .catch((error) => {
+      ocultarSpinner();
+      console.log(error);
+    });
 }
-
-
