@@ -29,9 +29,9 @@ function validateLogin(password, email) {
   }
 }
 
-loginButton.addEventListener('click', (evento) => {
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
   mostrarSpinner();
-  evento.preventDefault();
   loginObject.email = loginEmail.value;
   loginObject.password = loginPassword.value;
   authentication(loginObject);
