@@ -18,7 +18,7 @@ const loginObject = {
 };
 
 function validateLogin(password, email) {
-  if (eventsPassword(password) == '' && validateEmail(email) == '') {
+  if (validatePassword(password) === '' && validateEmail(email) === '') {
     loginButton.removeAttribute('disabled');
     loginButton.style.backgroundColor = '#7898FF';
     loginButton.innerText = 'Acessar';
@@ -41,7 +41,7 @@ loginEmail.addEventListener('keyup', () => {
 
 // validations in the password
 loginPassword.addEventListener('keyup', () => {
-  const call = eventsPassword(loginPassword.value);
+  const call = validatePassword(loginPassword.value);
 
   passwordValidation.innerText = call;
   loginPassword.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';

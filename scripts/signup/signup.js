@@ -21,10 +21,9 @@ const registryObject = {
 
 // creating the event for the button
 registryButton.addEventListener('click', (event) => {
+  event.preventDefault();
   mostrarSpinner();
   if (registryName.value, registrySurname.value, registryEmail.value, registryPassword.value, passwordConfirm.value) {
-    event.preventDefault();
-
     // normalization all the fields
     registryName = normalizeTextBetweenSpaces(registryName.value);
     registrySurname = normalizeTextBetweenSpaces(registrySurname.value);

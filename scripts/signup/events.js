@@ -7,7 +7,7 @@ const confirmValidation = document.getElementById('confirmValidation');
 
 // function for all the validations and enable the button
 function validateRegistry(name, surname, password, passwordConfirm, email) {
-  if (required(name) == '' && required(surname) == '' && eventsPassword(password) == '' && validatePassword(password, passwordConfirm) == '' && validateEmail(email) == '') {
+  if (required(name) === '' && required(surname) === '' && validatePassword(password) === '' && confirmPassword(password, passwordConfirm) === '' && validateEmail(email) === '') {
     registryButton.removeAttribute('disabled');
     registryButton.style.backgroundColor = '#0AA9FF';
     registryButton.innerText = 'Acessar';
@@ -23,7 +23,7 @@ registryName.addEventListener('keyup', () => {
   const call = required(registryName.value);
 
   nameValidation.innerHTML = call;
-  registryName.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  registryName.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateRegistry(registryName.value, registrySurname.value, registryPassword.value, passwordConfirm.value, registryEmail.value);
 });
@@ -32,7 +32,7 @@ registrySurname.addEventListener('keyup', () => {
   const call = required(registrySurname.value);
 
   surnameValidation.innerHTML = call;
-  registrySurname.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  registrySurname.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateRegistry(registryName.value, registrySurname.value, registryPassword.value, passwordConfirm.value, registryEmail.value);
 });
@@ -41,25 +41,25 @@ registryEmail.addEventListener('keyup', () => {
   const call = validateEmail(registryEmail.value);
 
   emailValidation.innerText = call;
-  registryEmail.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  registryEmail.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateRegistry(registryName.value, registrySurname.value, registryPassword.value, passwordConfirm.value, registryEmail.value);
 });
 
 registryPassword.addEventListener('keyup', () => {
-  const call = eventsPassword(registryPassword.value);
+  const call = validatePassword(registryPassword.value);
 
   passwordValidation.innerText = call;
-  registryPassword.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  registryPassword.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateRegistry(registryName.value, registrySurname.value, registryPassword.value, passwordConfirm.value, registryEmail.value);
 });
 
 passwordConfirm.addEventListener('keyup', () => {
-  const call = validatePassword(registryPassword.value, passwordConfirm.value);
+  const call = confirmPassword(registryPassword.value, passwordConfirm.value);
 
   confirmValidation.innerText = call;
-  passwordConfirm.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  passwordConfirm.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateRegistry(registryName.value, registrySurname.value, registryPassword.value, passwordConfirm.value, registryEmail.value);
 });

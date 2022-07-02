@@ -10,7 +10,7 @@ function validateEmail(email) {
 }
 
 // validations for strong passwords
-function eventsPassword(password) {
+function validatePassword(password) {
   return (!password) ? 'Campo obrigatório'
     : (!password.match(/^[0-9a-zA-Z$*&@#]{8,}$/)) ? 'A senha deve possuir ao menos 8 caracteres'
       : (!password.match(/[A-Z]+/)) ? 'A senha deve possuir ao menos uma letra maiúscula'
@@ -19,7 +19,7 @@ function eventsPassword(password) {
 }
 
 // validations for confirmation of the passwords
-function validatePassword(password, passwordConfirm) {
+function confirmPassword(password, passwordConfirm) {
   return (password !== passwordConfirm) ? 'Senhas incompatíveis' : '';
 }
 
