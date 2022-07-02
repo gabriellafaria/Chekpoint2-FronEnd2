@@ -29,20 +29,12 @@ function validateLogin(password, email) {
   }
 }
 
-loginButton.addEventListener('click', (event) => {
-  event.preventDefault();
-  mostrarSpinner();
-  loginObject.email = loginEmail.value;
-  loginObject.password = loginPassword.value;
-  authentication(loginObject);
-});
-
 // validations in the email -- calling function in the validation folder
 loginEmail.addEventListener('keyup', () => {
   const call = validateEmail(loginEmail.value);
 
   emailValidation.innerText = call;
-  loginEmail.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  loginEmail.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateLogin(loginPassword.value, loginEmail.value);
 });
@@ -52,7 +44,15 @@ loginPassword.addEventListener('keyup', () => {
   const call = eventsPassword(loginPassword.value);
 
   passwordValidation.innerText = call;
-  loginPassword.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
+  loginPassword.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
   validateLogin(loginPassword.value, loginEmail.value);
+});
+
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  mostrarSpinner();
+  loginObject.email = loginEmail.value;
+  loginObject.password = loginPassword.value;
+  authentication(loginObject);
 });
