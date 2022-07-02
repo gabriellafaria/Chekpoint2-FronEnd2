@@ -1,11 +1,13 @@
 const registryButton = document.getElementById('registryButton');
 
 // select all required elements
-let registryName = document.getElementById('registryName');
-let registrySurname = document.getElementById('registrySurname');
-let registryEmail = document.getElementById('registryEmail');
-let registryPassword = document.getElementById('registryPassword');
-let passwordConfirm = document.getElementById('passwordConfirm');
+const registryName = document.getElementById('registryName');
+const registrySurname = document.getElementById('registrySurname');
+const registryEmail = document.getElementById('registryEmail');
+const registryPassword = document.getElementById('registryPassword');
+const passwordConfirm = document.getElementById('passwordConfirm');
+
+const allFields = [registryName, registrySurname, registryEmail, registryPassword, passwordConfirm];
 
 // initing the button as invalid
 registryButton.innerText = 'Bloqueado';
@@ -23,19 +25,13 @@ const registryObject = {
 registryButton.addEventListener('click', (event) => {
   event.preventDefault();
   mostrarSpinner();
-  if (registryName.value, registrySurname.value, registryEmail.value, registryPassword.value, passwordConfirm.value) {
-    // normalization all the fields
-    registryName = normalizeTextBetweenSpaces(registryName.value);
-    registrySurname = normalizeTextBetweenSpaces(registrySurname.value);
-    registryEmail = normalizeTextBetweenSpaces(registryEmail.value);
-    registryPassword = normalizeTextBetweenSpaces(registryPassword.value);
-    passwordConfirm = normalizeTextBetweenSpaces(passwordConfirm.value);
-
-    // attributing the objects
-    registryObject.firstName = registryName;
-    registryObject.lastName = registrySurname;
-    registryObject.email = registryEmail;
-    registryObject.password = registryPassword;
+  if (allFields.every((field) => field.value)) {
+    allFields.forEach((field) => {
+      if (field.id !== 'passwordConfirm') {
+        // normalization all the fields
+        registryObject[field.name] = normalizeTextBetweenSpaces(field.value);
+      }
+    });
 
     register(registryObject);
   }
