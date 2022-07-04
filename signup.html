@@ -25,22 +25,22 @@
 
       <label>
         Nome:
-        <input type="text" id="registryName">
+        <input type="text" name="firstName" id="registryName">
       </label>
       <small id="nameValidation"></small>
       <label>
         Sobrenome:
-        <input type="text" id="registrySurname">
+        <input type="text" name="lastName" id="registrySurname">
       </label>
       <small id="surnameValidation"></small>
       <label>
         Email:
-        <input type="email" id="registryEmail">
+        <input type="email" name="email" id="registryEmail">
       </label>
       <small id="emailValidation"></small>
       <label>
         Senha:
-        <input type="password" id="registryPassword">
+        <input type="password" name="password" id="registryPassword">
       </label>
       <small id="passwordValidation"></small>
       <label>
@@ -57,10 +57,10 @@
     </div>
   </div>
 
-  <script src="./scripts/singup/loader.js"></script>
+  <script src="./scripts/loader.js"></script>
   <script src="./scripts/validations/utilities.js"></script>
-  <script src="./scripts/singup/singup.js" type="module"></script>
-  <script src="./scripts/singup/events.js" type="module"></script>
+  <script src="./scripts/services/register.js"></script>
+  <script src="./scripts/signup/signup.js" type="module"></script>
 </body>
 
 </html>

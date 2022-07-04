@@ -1,100 +1,58 @@
-let registryButton = document.getElementById("loginButton");
+const loginButton = document.getElementById('loginButton');
 
-// select all elements obrigatorys
-let registryEmail = document.getElementById("loginEmail");
-let registryPassword = document.getElementById("loginPassword");
+// select all required elements
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
 
 // import small elements for validations
-let emailValidation = document.getElementById("emailValidation");
-let passwordValidation = document.getElementById("passwordValidation");
+const emailValidation = document.getElementById('emailValidation');
+const passwordValidation = document.getElementById('passwordValidation');
 
 // initing the button as invalid
-loginButton.style.backgroundColor = "#979292A1";
-loginButton.innerText = "Bloqueado";
+loginButton.style.backgroundColor = '#979292A1';
+loginButton.innerText = 'Bloqueado';
 
-let loginObject = {
-    email: "",
-    password: ""
+const loginObject = {
+  email: '',
+  password: '',
 };
 
 function validateLogin(password, email) {
-    if (eventsPassword(password) == '' && validateEmail(email) == '') {
-        loginButton.removeAttribute("disabled");
-        loginButton.style.backgroundColor = "#7898FF";
-        loginButton.innerText = "Acessar";
-    } else {
-        loginButton.setAttribute("disabled", true);
-        loginButton.style.backgroundColor = "#979292A1";
-        loginButton.innerText = "Bloqueado";
-    }
-
-
-};
-
-
-registryButton.addEventListener("click", (evento) => {
-    mostrarSpinner()
-    evento.preventDefault();
-    loginObject.email = registryEmail.value;
-    loginObject.password = registryPassword.value;
-    authentication();
-});
+  if (validatePassword(password) === '' && validateEmail(email) === '') {
+    loginButton.removeAttribute('disabled');
+    loginButton.style.backgroundColor = '#7898FF';
+    loginButton.innerText = 'Acessar';
+  } else {
+    loginButton.setAttribute('disabled', true);
+    loginButton.style.backgroundColor = '#979292A1';
+    loginButton.innerText = 'Bloqueado';
+  }
+}
 
 // validations in the email -- calling function in the validation folder
-registryEmail.addEventListener('keyup', () => {
-    let call = validateEmail(loginEmail.value);
+loginEmail.addEventListener('keyup', () => {
+  const call = validateEmail(loginEmail.value);
 
-    emailValidation.innerText = call;
-    loginEmail.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E'
+  emailValidation.innerText = call;
+  loginEmail.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
-    validateLogin(loginPassword.value, loginEmail.value);
-})
-
-// validations in the password  
-registryPassword.addEventListener("keyup", () => {
-    let call = eventsPassword(loginPassword.value);
-
-    passwordValidation.innerText = call;
-    loginPassword.style.border = call == '' ? '1px solid transparent' : '1px solid #CC000E';
-
-    validateLogin(loginPassword.value, loginEmail.value);
+  validateLogin(loginPassword.value, loginEmail.value);
 });
 
-let statusObject = {
-    201: 'Login realizado com sucesso!',
-    400: 'Senha incorreta!',
-    404: 'Usuario não existe',
-    500: 'Erro de servidor'
-}
+// validations in the password
+loginPassword.addEventListener('keyup', () => {
+  const call = validatePassword(loginPassword.value);
 
-function authentication() {
-    fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginObject)
-    }
-    ).then(response => {
-        ocultarSpinner()
-        alert(statusObject[response.status])
-        
-        return response
-        
-    }
-    ).then(response => response.json()
-    ).then(data => {
-        if (data.jwt) {
-            sessionStorage.setItem('token', data.jwt);
-            
-            window.location.href = "./tarefas.html";
-        }
-        
-    }
-    ).catch(error => {
-        
-        console.log(error)
-    })
+  passwordValidation.innerText = call;
+  loginPassword.style.border = call === '' ? '1px solid transparent' : '1px solid #CC000E';
 
-    
-}
+  validateLogin(loginPassword.value, loginEmail.value);
+});
+
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  mostrarSpinner();
+  loginObject.email = loginEmail.value;
+  loginObject.password = loginPassword.value;
+  authentication(loginObject);
+});

@@ -40,84 +40,79 @@ function addTask(e) {
 };
 
 function deleteTask(e) {
-    let id = e;
-    fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': token
-            // 'Authorization': token
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            // alert(data);
-            pendingTask.innerHTML = "";
-            init();
-        })
+  const id = e;
+  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: token,
+      // 'Authorization': token
+    },
+  })
+    .then((response) => response.json())
+    .then((_data) => {
+      // alert(data);
+      pendingTask.innerHTML = '';
+      init();
+    });
 }
 
 async function init() {
-    await fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
-        method: 'GET',
-        headers: {
-            'Authorization': token
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
+  await fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+    method: 'GET',
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((task) => {
+        const tasks = `
+          <li class="tarefa">
+            <div class="not-done"></div>
+            <div class="descricao">
+              <p class="nome">${task.description}</p>
+              <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
+              <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
+              <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+            </div>
+          </li>`;
+        pendingTask.innerHTML += tasks;
 
-            data.forEach(task => {
-                let tasks = `
-                    <li class="tarefa">
-                    <div class="not-done"></div>
-                    <div class="descricao">
-                      <p class="nome">${task.description}</p>
-                      <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
-                      <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-                      <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
-                    </div>
-                  </li>`;
-                pendingTask.innerHTML += tasks;
+        // <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+      });
 
-                //<span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+      // if(!data.jwt){
+      //     alert("Sem permissão de acesso!")
+      //     window.location.href = './index.html'
+      // } else {
 
-            })
-
-            // if(!data.jwt){
-            //     alert("Sem permissão de acesso!")
-            //     window.location.href = './index.html'
-            // } else {
-
-            // }
-
-        })
+      // }
+    });
 }
 
 init();
 
-
 onload = async function usersData() {
-    let requestConfig = {
-        headers: {
-            "Authorization": token
-        }
-    };
+  const requestConfig = {
+    headers: {
+      Authorization: token,
+    },
+  };
 
-    try {
-        let response = await fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig)
-        if (response.status == 200) {
-            let convert = await response.json();
-            displayUserName(convert)
-        } else {
-            throw "Problema ao buscar o usuário"
-        }
-
-    } catch (error) {
-        console.log(error);
+  try {
+    const response = await fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig);
+    if (response.status == 200) {
+      const convert = await response.json();
+      displayUserName(convert);
+    } else {
+      throw 'Problema ao buscar o usuário';
     }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 function displayUserName(object) {
-    let userName = document.getElementById("userName");
-    userName.innerText = `${object.firstName} ${object.lastName}`;
-};
+  const userName = document.getElementById('userName');
+  userName.innerText = `${object.firstName} ${object.lastName}`;
+}
