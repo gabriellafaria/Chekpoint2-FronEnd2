@@ -1,40 +1,43 @@
 let pendingTask = document.getElementById('pendingTask');
 let taskDescription = document.getElementById('novaTarefa');
 let taskButton = document.getElementById('addTask');
-
+let validations = document.getElementById('validations');
 let token = sessionStorage.getItem('token')
 
 let task = {
     description: "",
     completed: false
-}
+};
 
 taskButton.addEventListener('click', addTask);
+
+taskDescription.addEventListener('keyup', () => {
+    let call = eventsTasks(taskDescription.value);
+
+    validations.innerHTML = call;
+    taskDescription.style.borderBottom = call !== '' ? '1px solid #CC000E' : '';
+
+    validateTasks(taskDescription.value);
+});
 
 function addTask(e) {
     e.preventDefault();
     task.description = taskDescription.value;
 
-    if (!taskDescription.value) {
-        alert("Insira uma descrição da tarefa")
-    } else if (taskDescription.value.length < 5) {
-        alert("A descrição da tarefa tem que ter mais de cinco letras")
-    } else {
-        fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
-            method: 'POST',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(task)
+    fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
+    })
+        .then(response => response.json())
+        .then(_data => {
+            pendingTask.innerHTML = "";
+            init();
         })
-            .then(response => response.json())
-            .then(_data => {
-                pendingTask.innerHTML = "";
-                init();
-            })
-    };
-}
+};
 
 function deleteTask(e) {
     let id = e;
