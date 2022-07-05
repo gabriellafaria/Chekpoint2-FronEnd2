@@ -259,6 +259,14 @@ a {
   margin-left: 10px;
 }
 
+.tarefas-terminadas .tarefa .not-done {
+  background-color: var(--secondary);
+}
+
+.tarefas-terminadas .tarefa .not-done:hover {
+  background-color: white;
+}
+
 .tarefas-terminadas .tarefa .descricao {
   background-color: rgb(228, 228, 228);
 }
