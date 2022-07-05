@@ -7,7 +7,7 @@ body{
 h1 {
   color: rgb(116, 116, 116);
   font-weight: 300;
-  margin: .5em 0;
+  margin: 0.5em 0;
 }
 
 form {
@@ -26,7 +26,7 @@ form {
 form:after {
   position: absolute;
   content: '';
-  width: .7em;
+  width: 0.7em;
   height: 100%;
   top: 0;
   left: 0;
@@ -36,10 +36,10 @@ form:after {
 
 input {
   width: 100%;
-  padding: .4em .5em;
+  padding: 0.4em 0.5em;
   background-color: var(--app-grey);
   border: 1px solid var(--app-grey);
-  border-radius: .2em;
+  border-radius: 0.2em;
 }
 
 input:focus {
@@ -52,11 +52,11 @@ label {
   font-weight: 300;
   margin-bottom: -.1em;
   margin-top: 1em;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 button {
-  padding: .5em 3em;
+  padding: 0.5em 3em;
   background-color: var(--primary);
   color: white;
   margin-top: 2em;
@@ -154,3 +154,22 @@ small {
   }
  }
 
+ @media (max-width: 540px) {
+  form:after {
+    width: 0.4em;
+  }
+  .form-header, h1 {
+    font-size: 1.5em;
+  }
+  .left{
+    max-width: 30%;
+    margin-right: 0.5em;
+  }
+  .left img{
+    min-width: 85%;
+  }
+  button {
+    padding: 0.3em 2em;
+    margin-left: 0.4em;
+  }
+}
