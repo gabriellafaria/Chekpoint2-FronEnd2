@@ -305,3 +305,63 @@ a {
   0% { opacity: 0.5; }
   100% { opacity: 0.8; }
 }
+
+
+@media (max-width: 540px) {
+  header{
+    width: 100%;
+    justify-content: space-around;
+    padding: 0 0.4em;
+  }
+  .user-info{
+    margin-left: 1.5em;
+  }
+  .tarefa {
+    max-width: 15em;
+  }
+  .nova-tarefa{
+    margin-left: 1.5em;
+  }
+  .tarefas-pendentes, .tarefas-terminadas{
+    margin: 1.5em 5%;
+  }
+  .edit, .delete{
+    margin-left: 10px;
+  }
+  .nova-tarefa input {
+    max-width: 100%;
+  }
+  .nova-tarefa button {
+    max-width: 1.4em;
+    max-height: 1.4em;
+    margin-left: 0.5em;
+    margin-right: 0.1em;
+  }
+  .nova-tarefa .not-done {
+    max-width: 1.7em;
+    max-height: 1.7em;
+    margin-left: 0;
+    margin-right: 0.4em;
+  }
+  .tarefa .descricao {
+    min-width: 14.5em;
+  }
+  .tarefa .nome {
+    margin-right: 1.5em;
+    max-width: 7em;
+    flex-shrink: 1;
+    flex-basis: 200px;
+  }
+  .tarefa .timestamp {
+    font-size: 0.8em;
+    margin-right: 0;
+    max-width: 5em;
+  }
+  li .descricao {
+    max-width: 15em;
+    padding: auto;
+  }
+  #closeApp, #userName {
+    text-align: center;
+  }
+}
