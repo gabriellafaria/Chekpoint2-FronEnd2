@@ -55,6 +55,26 @@ function deleteTask(e) {
       completedTask.innerHTML = '';
       init();
     });
+};
+
+function editTask(id) {
+  // const logDescription = document.querySelector('.nome').textContent;
+  let newDescription = prompt('Qual a nova decrição?');
+
+  task.description = newDescription;
+  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(task),
+  })
+    .then((response) => response.json())
+    .then((_data) => {
+      pendingTask.innerHTML = '';
+      init();
+    });
 }
 
 function completeTask(id) {
