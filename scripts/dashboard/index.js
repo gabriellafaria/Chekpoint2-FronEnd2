@@ -1,18 +1,19 @@
-let pendingTask = document.getElementById('pendingTask');
-let taskDescription = document.getElementById('novaTarefa');
-let taskButton = document.getElementById('addTask');
-let validations = document.getElementById('validations');
-let token = sessionStorage.getItem('token')
+const pendingTask = document.getElementById('pendingTask');
+const completedTask = document.getElementById('completedTask');
+const taskDescription = document.getElementById('novaTarefa');
+const taskButton = document.getElementById('addTask');
+const validations = document.getElementById('validations');
+const token = sessionStorage.getItem('token');
 
-let task = {
-    description: "",
-    completed: false
+const task = {
+  description: '',
+  completed: false,
 };
 
 taskButton.addEventListener('click', addTask);
 
 taskDescription.addEventListener('keyup', () => {
-    let call = eventsTasks(taskDescription.value);
+  const call = eventsTasks(taskDescription.value);
 
     validations.innerHTML = call;
     taskDescription.style.borderBottom = call !== '' ? '1px solid #CC000E' : '';
@@ -27,17 +28,18 @@ function addTask(e) {
     fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
         method: 'POST',
         headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
+      Authorization: token,
+      'Content-Type': 'application/json',
         },
-        body: JSON.stringify(task)
+    body: JSON.stringify(task),
     })
-        .then(response => response.json())
-        .then(_data => {
-            pendingTask.innerHTML = "";
+    .then((response) => response.json())
+    .then((_data) => {
+      pendingTask.innerHTML = '';
+      completedTask.innerHTML = '';
             init();
-        })
-};
+    });
+}
 
 function deleteTask(e) {
   const id = e;
@@ -45,15 +47,64 @@ function deleteTask(e) {
     method: 'DELETE',
     headers: {
       Authorization: token,
-      // 'Authorization': token
     },
   })
     .then((response) => response.json())
     .then((_data) => {
-      // alert(data);
       pendingTask.innerHTML = '';
+      completedTask.innerHTML = '';
       init();
     });
+}
+
+function completeTask(id) {
+  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ completed: true }),
+  })
+    .then((response) => response.json())
+    .then((_data) => {
+      pendingTask.innerHTML = '';
+      completedTask.innerHTML = '';
+      init();
+    });
+}
+
+function uncompleteTask(id) {
+  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ completed: false }),
+  })
+    .then((response) => response.json())
+    .then((_data) => {
+      pendingTask.innerHTML = '';
+      completedTask.innerHTML = '';
+      init();
+    });
+}
+
+function createTaskHtml(task, isCompleted) {
+        const tasks = `
+          <li class="tarefa">
+      <div class="not-done" onclick="${isCompleted ? 'uncompleteTask' : 'completeTask'}(${task.id})">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="white" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+      </div>
+            <div class="descricao">
+              <p class="nome">${task.description}</p>
+              <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
+              <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
+              <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+            </div>
+          </li>`;
+  return tasks;
 }
 
 async function init() {
@@ -65,20 +116,18 @@ async function init() {
   })
     .then((response) => response.json())
     .then((data) => {
-      data.forEach((task) => {
-        const tasks = `
-          <li class="tarefa">
-            <div class="not-done"></div>
-            <div class="descricao">
-              <p class="nome">${task.description}</p>
-              <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
-              <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-              <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
-            </div>
-          </li>`;
-        pendingTask.innerHTML += tasks;
+      console.log(data);
+      const pendingTasks = data.filter((task) => task.completed === false);
+      const completedTasks = data.filter((task) => task.completed === true);
 
-        // <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+      pendingTasks.forEach((task) => {
+        const tasks = createTaskHtml(task, false);
+        pendingTask.innerHTML += tasks;
+      });
+
+      completedTasks.forEach((task) => {
+        const tasks = createTaskHtml(task, true);
+        completedTask.innerHTML += tasks;
       });
 
       // if(!data.jwt){
