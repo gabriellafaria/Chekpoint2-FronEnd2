@@ -15,29 +15,29 @@ taskButton.addEventListener('click', addTask);
 taskDescription.addEventListener('keyup', () => {
   const call = eventsTasks(taskDescription.value);
 
-    validations.innerHTML = call;
-    taskDescription.style.borderBottom = call !== '' ? '1px solid #CC000E' : '';
+  validations.innerHTML = call;
+  taskDescription.style.borderBottom = call !== '' ? '1px solid #CC000E' : '';
 
-    validateTasks(taskDescription.value);
+  validateTasks(taskDescription.value);
 });
 
 function addTask(e) {
-    e.preventDefault();
-    task.description = taskDescription.value;
+  e.preventDefault();
+  task.description = taskDescription.value;
 
-    fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
-        method: 'POST',
-        headers: {
+  fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+    method: 'POST',
+    headers: {
       Authorization: token,
       'Content-Type': 'application/json',
-        },
+    },
     body: JSON.stringify(task),
-    })
+  })
     .then((response) => response.json())
     .then((_data) => {
       pendingTask.innerHTML = '';
       completedTask.innerHTML = '';
-            init();
+      init();
     });
 }
 
@@ -91,19 +91,37 @@ function uncompleteTask(id) {
     });
 }
 
+function addSkeleton() {
+  const skeleton = `
+    <div class="skeleton">
+    <li class="tarefa">
+      <div class="not-done"></div>
+      <div class="descricao">
+        <p class="nome"></p>
+        <p class="timestamp"></p>
+        <span class="delete"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
+        <span class="edit"><img src="./assets/editar.png" alt="Editar task"></span>
+      </div>
+    </li>
+    </div>
+  `;
+  pendingTask.innerHTML += skeleton;
+  completedTask.innerHTML += skeleton;
+}
+
 function createTaskHtml(task, isCompleted) {
-        const tasks = `
-          <li class="tarefa">
+  const tasks = `
+    <li class="tarefa">
       <div class="not-done" onclick="${isCompleted ? 'uncompleteTask' : 'completeTask'}(${task.id})">
         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="white" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
       </div>
-            <div class="descricao">
-              <p class="nome">${task.description}</p>
-              <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
-              <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-              <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
-            </div>
-          </li>`;
+      <div class="descricao">
+        <p class="nome">${task.description}</p>
+        <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
+        <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
+        <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+      </div>
+    </li>`;
   return tasks;
 }
 
@@ -130,18 +148,19 @@ async function init() {
         completedTask.innerHTML += tasks;
       });
 
-      // if(!data.jwt){
-      //     alert("Sem permissão de acesso!")
-      //     window.location.href = './index.html'
-      // } else {
-
-      // }
+      const allSkeletons = document.getElementsByClassName('skeleton');
+      Array.from(allSkeletons).forEach((skeleton) => {
+        skeleton.remove();
+      });
     });
 }
 
 init();
 
 onload = async function usersData() {
+  for (let i = 0; i < 3; i += 1) {
+    addSkeleton();
+  }
   const requestConfig = {
     headers: {
       Authorization: token,
