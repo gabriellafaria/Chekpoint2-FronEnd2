@@ -20,7 +20,6 @@ taskDescription.addEventListener('keyup', () => {
   validateTasks(taskDescription.value);
 });
 
-<<<<<<< HEAD
 logout.addEventListener('click', () => {
   Swal.fire({
     title: 'Você realmente quer sair?',
@@ -35,9 +34,9 @@ logout.addEventListener('click', () => {
       sessionStorage.removeItem('token');
       window.location.href = './index.html';
     }
-  })
+  });
 });
-=======
+
 function createTaskHtml(taskData, isCompleted) {
   const tasks = `
     <li class="tarefa">
@@ -125,7 +124,6 @@ window.onload = async function usersData() {
     renderTasks();
   }
 };
->>>>>>> main
 
 function addTask(e) {
   e.preventDefault();
