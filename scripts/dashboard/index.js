@@ -4,6 +4,7 @@ const taskDescription = document.getElementById('novaTarefa');
 const taskButton = document.getElementById('addTask');
 const validations = document.getElementById('validations');
 const token = sessionStorage.getItem('token');
+const logout = document.getElementById('closeApp');
 
 const task = {
   description: '',
@@ -19,6 +20,23 @@ taskDescription.addEventListener('keyup', () => {
   taskDescription.style.borderBottom = call !== '' ? '1px solid #CC000E' : '';
 
   validateTasks(taskDescription.value);
+});
+
+logout.addEventListener('click', () => {
+  Swal.fire({
+    title: 'Você realmente quer sair?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim',
+    cancelButtonText: 'Não'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      sessionStorage.removeItem('token');
+      window.location.href = './index.html';
+    }
+  })
 });
 
 function addTask(e) {
