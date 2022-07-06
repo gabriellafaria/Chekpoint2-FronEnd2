@@ -68,8 +68,7 @@ function displayUserName(object) {
 
 function addSkeleton() {
   const skeleton = `
-    <div class="skeleton">
-    <li class="tarefa">
+    <li class="tarefa skeleton">
       <div class="not-done"></div>
       <div class="descricao">
         <p class="nome"></p>
@@ -78,7 +77,6 @@ function addSkeleton() {
         <span class="edit"><img src="./assets/editar.png" alt="Editar task"></span>
       </div>
     </li>
-    </div>
   `;
   pendingTask.innerHTML += skeleton;
   completedTask.innerHTML += skeleton;
