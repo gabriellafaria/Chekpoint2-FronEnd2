@@ -1,6 +1,6 @@
 function authentication(loginData) {
   const statusObject = {
-    201: 'Login realizado com sucesso!',
+    // 201: 'Login realizado com sucesso!',
     400: 'Senha incorreta!',
     404: 'Usuario não existe',
     500: 'Erro de servidor',
@@ -14,13 +14,13 @@ function authentication(loginData) {
     body: JSON.stringify(loginData),
   }).then((response) => {
     ocultarSpinner();
-    alert(statusObject[response.status]);
-
+    if (response.status !== 200) {
+      alert(statusObject[response.status]);
+    }
     return response.json();
   }).then((data) => {
     if (data.jwt) {
       sessionStorage.setItem('token', data.jwt);
-
       window.location.href = './tarefas.html';
     }
   })
