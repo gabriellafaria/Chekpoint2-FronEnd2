@@ -55,11 +55,11 @@ function deleteTask(e) {
       completedTask.innerHTML = '';
       init();
     });
-};
+}
 
 function editTask(id) {
   // const logDescription = document.querySelector('.nome').textContent;
-  let newDescription = prompt('Qual a nova decrição?');
+  const newDescription = prompt('Qual a nova decrição?');
 
   task.description = newDescription;
   fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
@@ -73,6 +73,7 @@ function editTask(id) {
     .then((response) => response.json())
     .then((_data) => {
       pendingTask.innerHTML = '';
+      completedTask.innerHTML = '';
       init();
     });
 }
@@ -129,17 +130,17 @@ function addSkeleton() {
   completedTask.innerHTML += skeleton;
 }
 
-function createTaskHtml(task, isCompleted) {
+function createTaskHtml(taskData, isCompleted) {
   const tasks = `
     <li class="tarefa">
-      <div class="not-done" onclick="${isCompleted ? 'uncompleteTask' : 'completeTask'}(${task.id})">
+      <div class="not-done" onclick="${isCompleted ? 'uncompleteTask' : 'completeTask'}(${taskData.id})">
         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="white" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
       </div>
       <div class="descricao">
-        <p class="nome">${task.description}</p>
-        <p class="timestamp">Criada em: ${dateFormat(task.createdAt)}</p>
-        <span class="delete" onclick="deleteTask(${task.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-        <span class="edit" onclick="editTask(${task.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+        <p class="nome">${taskData.description}</p>
+        <p class="timestamp">Criada em: ${dateFormat(taskData.createdAt)}</p>
+        <span class="delete" onclick="deleteTask(${taskData.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
+        <span class="edit" onclick="editTask(${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>
       </div>
     </li>`;
   return tasks;
@@ -154,18 +155,14 @@ async function init() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      const pendingTasks = data.filter((task) => task.completed === false);
-      const completedTasks = data.filter((task) => task.completed === true);
-
-      pendingTasks.forEach((task) => {
-        const tasks = createTaskHtml(task, false);
-        pendingTask.innerHTML += tasks;
-      });
-
-      completedTasks.forEach((task) => {
-        const tasks = createTaskHtml(task, true);
-        completedTask.innerHTML += tasks;
+      data.sort((a, b) => b.id - a.id).forEach((taskData) => {
+        if (!taskData.completed) {
+          const tasks = createTaskHtml(taskData, false);
+          pendingTask.innerHTML += tasks;
+        } else {
+          const tasks = createTaskHtml(taskData, true);
+          completedTask.innerHTML += tasks;
+        }
       });
 
       const allSkeletons = document.getElementsByClassName('skeleton');
@@ -177,7 +174,12 @@ async function init() {
 
 init();
 
-onload = async function usersData() {
+function displayUserName(object) {
+  const userName = document.getElementById('userName');
+  userName.innerText = `${object.firstName} ${object.lastName}`;
+}
+
+window.onload = async function usersData() {
   for (let i = 0; i < 3; i += 1) {
     addSkeleton();
   }
@@ -189,18 +191,13 @@ onload = async function usersData() {
 
   try {
     const response = await fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig);
-    if (response.status == 200) {
+    if (response.status === 200) {
       const convert = await response.json();
       displayUserName(convert);
     } else {
-      throw 'Problema ao buscar o usuário';
+      throw new Error('Problema ao buscar o usuário');
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
-
-function displayUserName(object) {
-  const userName = document.getElementById('userName');
-  userName.innerText = `${object.firstName} ${object.lastName}`;
-}
