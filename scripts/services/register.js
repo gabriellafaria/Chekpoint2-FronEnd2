@@ -11,11 +11,13 @@ function register(registryData) {
     },
     body: JSON.stringify(registryData),
   }).then((response) => {
-    alert(statusObject[response.status]);
+    if(response.status !== 201){
+    alert(statusObject[response.status])
+    }
     return response.json();
   }).then((data) => {
     if (data.jwt) {
-      localStorage.setItem('token', data.jwt);
+      sessionStorage.setItem('token', data.jwt);
       hideSpinner();
       window.location.href = './tarefas.html';
     } else {
