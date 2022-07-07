@@ -63,6 +63,10 @@ window.onload = async function usersData() {
     if (response.status === 200) {
       const convert = await response.json();
       displayUserName(convert);
+      let avatar = document.querySelectorAll('.profileImg')
+      avatar.forEach((image) => {
+        image.src = `https://robohash.org/${convert.firtName}_${convert.lastName}.png`
+      })
     } else {
       throw new Error('Problema ao buscar o usuário');
     }

@@ -22,7 +22,6 @@
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-
   <title>To-Do App</title>
 </head>
 
@@ -34,7 +33,9 @@
 
     <div class="user-info">
       <p id="userName">Nome usuário</p>
-      <div class="user-image"></div>
+      <div class="user-image">
+        <img alt="Imagem de perfil" class="profileImg" src="./assets/imgplaceholder.png">
+      </div>
       <p id="closeApp">Finalizar sessão</i>
       </p>
     </div>
@@ -42,7 +43,9 @@
 
 
   <form class="nova-tarefa">
-    <div class="not-done "></div>
+    <div class="not-done">
+      <img alt="Imagem de perfil" class="profileImg" src="./assets/imgplaceholder.png">
+    </div>
     <div class="input-validation">
       <input id="novaTarefa" type="text" placeholder="Nova tarefa">
       <small id="validations"></small>
