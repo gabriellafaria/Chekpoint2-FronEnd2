@@ -113,6 +113,7 @@ function addTask(e) {
     .then((_data) => {
       pendingTask.innerHTML = '';
       completedTask.innerHTML = '';
+      taskDescription.value = '';
       renderTasks();
     });
 }
