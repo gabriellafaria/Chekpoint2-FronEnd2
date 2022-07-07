@@ -224,6 +224,33 @@ a {
   opacity: 1;
 }
 
+#sendButton img, #cancelButton img {
+  width: 1em;
+  height: 1em;
+  margin-left: 0.6em;
+  opacity: 0.5;
+}
+
+#sendButton, #cancelButton {
+  background-color: transparent;
+}
+
+#name {
+  border: none;
+  border-bottom: 1px solid gainsboro;
+  font-family: 'Lato', sans-serif;
+  color: rgb(95 95 95);
+  font-size: 0.9em;
+}
+#name:focus {
+  outline: none;
+  border-bottom: 1px solid grey;
+}
+
+#name::placeholder{
+  color: lightgrey
+}
+
 /* Tarefas terminadas ----------------------------------------------------------- */
 
 .titulo-terminadas {
@@ -326,7 +353,9 @@ a {
     margin: 1.5em 5%;
   }
   .edit, .delete{
-    margin-left: 10px;
+    margin-left: 13px;
+    width: 0.7em;
+    height: 0.7em;
   }
   .nova-tarefa input {
     max-width: 100%;
