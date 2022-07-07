@@ -2,7 +2,7 @@ const body = document.querySelector('body');
 const form = document.querySelector('form');
 const ingressar = document.querySelector('.ingressar');
 
-function mostrarSpinner() {
+function showSpinner() {
   const spinnerContainer = document.createElement('div');
   const spinner = document.createElement('div');
 
@@ -16,7 +16,7 @@ function mostrarSpinner() {
   body.appendChild(spinnerContainer);
 }
 
-function ocultarSpinner() {
+function hideSpinner() {
   const spinnerContainer = document.querySelector('#container-load');
 
   body.removeChild(spinnerContainer);

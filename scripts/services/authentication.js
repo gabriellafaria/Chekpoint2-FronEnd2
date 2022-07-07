@@ -12,7 +12,7 @@ function authentication(loginData) {
     },
     body: JSON.stringify(loginData),
   }).then((response) => {
-    ocultarSpinner();
+    hideSpinner();
     if (response.status !== 201) {
       alert(statusObject[response.status]);
     }
@@ -26,4 +26,4 @@ function authentication(loginData) {
     .catch((error) => {
       console.log(error);
     });
-}
+};

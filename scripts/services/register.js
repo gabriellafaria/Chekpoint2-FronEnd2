@@ -16,7 +16,7 @@ function register(registryData) {
   }).then((data) => {
     if (data.jwt) {
       localStorage.setItem('token', data.jwt);
-      ocultarSpinner();
+      hideSpinner();
       window.location.href = './tarefas.html';
     } else {
       // Verificar uma forma de limpar o formulário sem recarregar a pagina
@@ -24,7 +24,7 @@ function register(registryData) {
     }
   })
     .catch((error) => {
-      ocultarSpinner();
+      hideSpinner();
       console.log(error);
     });
 }
