@@ -1,6 +1,6 @@
 const body = document.querySelector('body');
 const form = document.querySelector('form');
-const ingressar = document.querySelector('.ingressar');
+const join = document.querySelector('.join');
 
 function showSpinner() {
   const spinnerContainer = document.createElement('div');
@@ -10,7 +10,7 @@ function showSpinner() {
   spinner.setAttribute('id', 'load');
 
   form.classList.add('hidden');
-  ingressar.classList.add('hidden');
+  join.classList.add('hidden');
 
   spinnerContainer.appendChild(spinner);
   body.appendChild(spinnerContainer);
@@ -22,15 +22,15 @@ function hideSpinner() {
   body.removeChild(spinnerContainer);
 
   form.classList.remove('hidden');
-  ingressar.classList.remove('hidden');
+  join.classList.remove('hidden');
 }
 
 function addSkeleton() {
   const skeleton = `
-    <li class="tarefa skeleton">
+    <li class="task-container skeleton">
       <div class="not-done"></div>
-      <div class="descricao">
-        <p class="nome"></p>
+      <div class="description-container">
+        <p class="name-element"></p>
         <p class="timestamp"></p>
         <span class="delete"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
         <span class="edit"><img src="./assets/editar.png" alt="Editar task"></span>

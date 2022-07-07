@@ -1,7 +1,7 @@
 // select all required elements
 const pendingTask = document.getElementById('pendingTask');
 const completedTask = document.getElementById('completedTask');
-const taskDescription = document.getElementById('novaTarefa');
+const taskDescription = document.getElementById('newTask-input');
 const taskButton = document.getElementById('addTask');
 const validations = document.getElementById('validations');
 const token = sessionStorage.getItem('token');
@@ -82,12 +82,12 @@ window.onload = async function usersData() {
 //CRUD (Create task - estructure)
 function createTaskHtml(taskData, isCompleted) {
   const tasks = `
-    <li class="tarefa">
+    <li class="task-container">
       <div class="not-done" onclick="${isCompleted ? 'uncompleteTask' : 'completeTask'}(${taskData.id})">
         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="white" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
       </div>
-      <div class="descricao">
-        <p class="nome" id="task-${taskData.id}">${taskData.description}</p>
+      <div class="description-container">
+        <p class="name-element" id="task-${taskData.id}">${taskData.description}</p>
         <p class="timestamp">Criada em: ${dateFormat(taskData.createdAt)}</p>
         <span class="delete" onclick="deleteTask(${taskData.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
         <span class="edit" onclick="editTask(${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>

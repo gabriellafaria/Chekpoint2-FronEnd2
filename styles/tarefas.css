@@ -54,7 +54,7 @@ a {
 
 /* Nova tarefa ----------------------------------------------------------- */
 
-.nova-tarefa {
+.newTask-form {
   position: relative;
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ a {
   color: red;
 }
 
-.nova-tarefa input[type="text"] {
+.newTask-form input[type="text"] {
   border: none;
   flex: 1;
   border-bottom: 1px solid lightgrey;
@@ -87,17 +87,17 @@ a {
   font-size: 1.1em;
 }
 
-.nova-tarefa input:focus {
+.newTask-form input:focus {
   outline: none;
   border-bottom: 1px solid grey;
 }
 
-.nova-tarefa input::placeholder {
+.newTask-form input::placeholder {
   color: rgb(197 197 197);
   text-indent: 0.2em;
 }
 
-.nova-tarefa button {
+.newTask-form button {
   height: 2em;
   width: 2em;
   background-color: transparent;
@@ -107,15 +107,15 @@ a {
   cursor: no-drop;
 }
 
-.nova-tarefa button:enabled {
+.newTask-form button:enabled {
   cursor: pointer;
 }
 
-.nova-tarefa button:enabled:hover {
+.newTask-form button:enabled:hover {
   opacity: 1;
 }
 
-.nova-tarefa button img {
+.newTask-form button img {
   height: 100%;
   width: 100%;
 }
@@ -133,7 +133,7 @@ a {
 
 /* Lista de tarefas ----------------------------------------------------------- */
 
-.tarefas-pendentes {
+.pending-tasks {
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -141,13 +141,13 @@ a {
   margin: 2em 15%;
 }
 
-.tarefa {
+.task-container {
   display: flex;
   align-items: center;
   margin-bottom: 1.5em;
 }
 
-.tarefa .not-done {
+.task-container .not-done {
   position: relative;
   height: 1.5em;
   width: 1.5em;
@@ -158,11 +158,11 @@ a {
   transition: background-color 200ms linear;
 }
 
-.tarefa .not-done:hover {
+.task-container .not-done:hover {
   background-color: var(--secondary);
 }
 
-.tarefa:first-child .not-done::before {
+.task-container:first-child .not-done::before {
   content: "";
   position: absolute;
   bottom: 100%;
@@ -173,7 +173,7 @@ a {
   background-color: var(--secondary);
 }
 
-.tarefa:not(:last-child) .not-done::after {
+.task-container:not(:last-child) .not-done::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -184,7 +184,7 @@ a {
   background-color: var(--secondary);
 }
 
-.tarefa .descricao {
+.task-container .description-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -194,12 +194,12 @@ a {
   box-shadow: 2px 2px 5px lightgrey;
 }
 
-.tarefa .nome {
+.task-container .name-element {
   color: rgb(95 95 95);
   flex-grow: 1;
 }
 
-.tarefa .timestamp {
+.task-container .timestamp {
   font-size: 0.9em;
   color: rgb(134 134 134);
 }
@@ -247,6 +247,7 @@ a {
   color: rgb(95 95 95);
   font-size: 0.9em;
 }
+
 #name:focus {
   outline: none;
   border-bottom: 1px solid grey;
@@ -258,7 +259,7 @@ a {
 
 /* Tarefas terminadas ----------------------------------------------------------- */
 
-.titulo-terminadas {
+.finishedTasks-title {
   position: relative;
   width: 8em;
   text-align: center;
@@ -273,7 +274,7 @@ a {
   z-index: 20;
 }
 
-.tarefas-terminadas {
+.finishedTasks {
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -281,42 +282,33 @@ a {
   margin: 2em 15%;
 }
 
-.tarefas-terminadas i {
+.finishedTasks i {
   color: grey;
   background-color: rgb(228 228 228);
 }
 
-.tarefas-terminadas button {
+.finishedTasks button {
   margin-left: 10px;
 }
 
-.tarefas-terminadas .tarefa .not-done {
+.finishedTasks .task-container .not-done {
   background-color: var(--secondary);
 }
 
-.tarefas-terminadas .tarefa .not-done:hover {
+.finishedTasks .task-container .not-done:hover {
   background-color: white;
 }
 
-.tarefas-terminadas .tarefa .descricao {
+.finishedTasks .task-container .description-container {
   background-color: rgb(228 228 228);
 }
 
-.tarefas-terminadas .tarefa .descricao .nome {
+.finishedTasks .task-container .description-container .name-element {
   color: grey;
   text-decoration: line-through;
 }
 
-/* .tarefas__terminada .descricao .nome {
-  color: grey;
-  text-decoration: line-through;
-
-}
-.tarefas__terminada .descricao {
-  background-color: rgb(228, 228, 228);
-} */
-
-.skeleton .descricao {
+.skeleton .description-container {
   background-color: rgb(189 189 189);
 }
 
@@ -348,13 +340,13 @@ a {
   .user-info{
     margin-left: 1.5em;
   }
-  .tarefa {
+  .task-container {
     max-width: 15em;
   }
-  .nova-tarefa{
+  .newTask-form{
     margin-left: 1.5em;
   }
-  .tarefas-pendentes, .tarefas-terminadas{
+  .pending-tasks, .finishedTasks{
     margin: 1.5em 5%;
   }
   .edit, .delete{
@@ -362,36 +354,36 @@ a {
     width: 0.7em;
     height: 0.7em;
   }
-  .nova-tarefa input {
+  .newTask-form input {
     max-width: 100%;
   }
-  .nova-tarefa button {
+  .newTask-form button {
     max-width: 1.4em;
     max-height: 1.4em;
     margin-left: 0.5em;
     margin-right: 0.1em;
   }
-  .nova-tarefa .not-done {
+  .newTask-form .not-done {
     max-width: 1.7em;
     max-height: 1.7em;
     margin-left: 0;
     margin-right: 0.4em;
   }
-  .tarefa .descricao {
+  .task-container .description-container {
     min-width: 14.5em;
   }
-  .tarefa .nome {
+  .task-container .name-element {
     margin-right: 1.5em;
     max-width: 7em;
     flex-shrink: 1;
     flex-basis: 200px;
   }
-  .tarefa .timestamp {
+  .task-container .timestamp {
     font-size: 0.8em;
     margin-right: 0;
     max-width: 5em;
   }
-  li .descricao {
+  li .description-container {
     max-width: 15em;
     padding: auto;
   }

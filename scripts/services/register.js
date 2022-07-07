@@ -19,7 +19,7 @@ function register(registryData) {
     if (data.jwt) {
       sessionStorage.setItem('token', data.jwt);
       hideSpinner();
-      window.location.href = './tarefas.html';
+      window.location.href = './tasks.html';
     } else {
       // Verificar uma forma de limpar o formulário sem recarregar a pagina
       window.location.href = './signup.html';

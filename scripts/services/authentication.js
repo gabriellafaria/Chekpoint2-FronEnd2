@@ -20,7 +20,7 @@ function authentication(loginData) {
   }).then((data) => {
     if (data.jwt) {
       sessionStorage.setItem('token', data.jwt);
-      window.location.href = './tarefas.html';
+      window.location.href = './tasks.html';
     }
   })
     .catch((error) => {
