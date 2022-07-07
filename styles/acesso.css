@@ -154,6 +154,7 @@ small {
   }
  }
 
+ /*  --------- Media Query ------------ */
  @media (max-width: 540px) {
   form:after {
     width: 0.4em;

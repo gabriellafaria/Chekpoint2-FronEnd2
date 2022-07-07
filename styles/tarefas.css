@@ -33,7 +33,6 @@ a {
   width: 2em;
   border-radius: 50%;
   background-color: white;
-  /* opacity: 0.4; */
   margin-left: 0.7em;
 }
 
@@ -308,6 +307,7 @@ a {
   text-decoration: line-through;
 }
 
+/* ---------- SKELETON ------------ */
 .skeleton .description-container {
   background-color: rgb(189 189 189);
 }
@@ -330,7 +330,7 @@ a {
   100% { opacity: 0.8; }
 }
 
-
+/*  --------- Media Query ------------ */
 @media (max-width: 540px) {
   header{
     width: 100%;
