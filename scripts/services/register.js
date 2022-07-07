@@ -1,6 +1,5 @@
 function register(registryData) {
   const statusObject = {
-    201: 'Cadastro realizado com sucesso!',
     400: 'Usuário já existe ou Dados incompletos!',
     500: 'Erro de servidor!',
   };

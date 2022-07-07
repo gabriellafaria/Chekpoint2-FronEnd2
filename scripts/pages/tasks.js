@@ -4,7 +4,7 @@ const taskDescription = document.getElementById('novaTarefa');
 const taskButton = document.getElementById('addTask');
 const validations = document.getElementById('validations');
 const token = sessionStorage.getItem('token');
-const logout = document.getElementById('closeApp');
+
 
 const task = {
   description: '',
@@ -20,22 +20,6 @@ taskDescription.addEventListener('keyup', () => {
   validateTasks(taskDescription.value);
 });
 
-logout.addEventListener('click', () => {
-  Swal.fire({
-    title: 'Você realmente quer sair?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sim',
-    cancelButtonText: 'Não'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      sessionStorage.removeItem('token');
-      window.location.href = './index.html';
-    }
-  });
-});
 
 function createTaskHtml(taskData, isCompleted) {
   const tasks = `
@@ -77,27 +61,6 @@ async function renderTasks() {
         skeleton.remove();
       });
     });
-}
-
-function displayUserName(object) {
-  const userName = document.getElementById('userName');
-  userName.innerText = `${object.firstName} ${object.lastName}`;
-}
-
-function addSkeleton() {
-  const skeleton = `
-    <li class="tarefa skeleton">
-      <div class="not-done"></div>
-      <div class="descricao">
-        <p class="nome"></p>
-        <p class="timestamp"></p>
-        <span class="delete"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-        <span class="edit"><img src="./assets/editar.png" alt="Editar task"></span>
-      </div>
-    </li>
-  `;
-  pendingTask.innerHTML += skeleton;
-  completedTask.innerHTML += skeleton;
 }
 
 window.onload = async function usersData() {
@@ -153,7 +116,7 @@ function deleteTask(e) {
     method: 'DELETE',
     headers: {
       Authorization: token,
-    },
+    }
   })
     .then((response) => response.json())
     .then((_data) => {
@@ -176,8 +139,8 @@ function editTask(id) {
   <button> 
 `
 
- let oldLogDescription = logDescription.innerHTML;
- logDescription.innerHTML = edit;
+  let oldLogDescription = logDescription.innerHTML;
+  logDescription.innerHTML = edit;
 
   const sendButton = document.getElementById('sendButton');
   const editValidation = document.getElementById('editValidation');
@@ -215,36 +178,3 @@ function editTask(id) {
   })
 };
 
-function completeTask(id) {
-  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ completed: true }),
-  })
-    .then((response) => response.json())
-    .then((_data) => {
-      pendingTask.innerHTML = '';
-      completedTask.innerHTML = '';
-      renderTasks();
-    });
-}
-
-function uncompleteTask(id) {
-  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ completed: false }),
-  })
-    .then((response) => response.json())
-    .then((_data) => {
-      pendingTask.innerHTML = '';
-      completedTask.innerHTML = '';
-      renderTasks();
-    });
-}

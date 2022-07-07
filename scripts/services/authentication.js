@@ -1,6 +1,5 @@
 function authentication(loginData) {
   const statusObject = {
-    // 201: 'Login realizado com sucesso!',
     400: 'Senha incorreta!',
     404: 'Usuario não existe',
     500: 'Erro de servidor',
