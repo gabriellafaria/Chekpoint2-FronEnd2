@@ -18,7 +18,7 @@ logout.addEventListener('click', () => {
 });
 
 function completeTask(id) {
-  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+  fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
     method: 'PUT',
     headers: {
       Authorization: token,
@@ -35,7 +35,7 @@ function completeTask(id) {
 }
 
 function uncompleteTask(id) {
-  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+  fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
     method: 'PUT',
     headers: {
       Authorization: token,

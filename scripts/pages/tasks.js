@@ -23,7 +23,7 @@ taskDescription.addEventListener('keyup', () => {
 
 //rendering tasks on the page
 async function renderTasks() {
-  await fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+  await fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks', {
     method: 'GET',
     headers: {
       Authorization: token,
@@ -59,7 +59,7 @@ window.onload = async function usersData() {
   };
 
   try {
-    const response = await fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig);
+    const response = await fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/users/getMe', requestConfig);
     if (response.status === 200) {
       const convert = await response.json();
       displayUserName(convert);
@@ -101,7 +101,7 @@ function addTask(e) {
   e.preventDefault();
   task.description = taskDescription.value;
 
-  fetch('https://ctd-todo-api.herokuapp.com/v1/tasks', {
+  fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks', {
     method: 'POST',
     headers: {
       Authorization: token,
@@ -123,7 +123,7 @@ taskButton.addEventListener('click', addTask);
 //CRUD (Delete task)
 function deleteTask(e) {
   const id = e;
-  fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+  fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: token,
@@ -162,7 +162,7 @@ function editTask(id) {
     if (editDescription.value.length > 5) {
       task.description = editDescription.value;
 
-      fetch(`https://ctd-todo-api.herokuapp.com/v1/tasks/${id}`, {
+      fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: token,

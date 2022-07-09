@@ -5,7 +5,7 @@ function loginAuthentication(loginData) {
     500: 'Erro de servidor',
   };
 
-  fetch('https://ctd-todo-api.herokuapp.com/v1/users/login', {
+  fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
