@@ -53,5 +53,5 @@ loginButton.addEventListener('click', (event) => {
   showSpinner();
   loginObject.email = loginEmail.value;
   loginObject.password = loginPassword.value;
-  authentication(loginObject);
+  loginAuthentication(loginObject);
 });

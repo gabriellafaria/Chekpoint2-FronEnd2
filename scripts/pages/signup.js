@@ -80,6 +80,6 @@ registryButton.addEventListener('click', (event) => {
       }
     });
 
-    register(registryObject);
+    registerAuthentication(registryObject);
   }
 });
