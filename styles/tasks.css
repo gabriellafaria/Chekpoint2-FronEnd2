@@ -330,7 +330,7 @@ a {
   100% { opacity: 0.8; }
 }
 
-/*  --------- Media Query ------------ */
+/*  --------- Media Query --------- */
 @media (max-width: 540px) {
   header{
     width: 100%;
@@ -350,7 +350,7 @@ a {
     margin: 1.5em 5%;
   }
   .edit, .delete{
-    margin-left: 13px;
+    margin-left: 15px;
     width: 0.7em;
     height: 0.7em;
   }
@@ -373,7 +373,7 @@ a {
     min-width: 14.5em;
   }
   .task-container .name-element {
-    margin-right: 1.5em;
+    margin-right: 1.6em;
     max-width: 7em;
     flex-shrink: 1;
     flex-basis: 200px;
@@ -389,5 +389,12 @@ a {
   }
   #closeApp, #userName {
     text-align: center;
+  }
+  #sendButton {
+    margin-top: 0.6em;
+    margin-right: 0.4em;
+  }
+  #name{
+    max-width: 9em;
   }
 }
