@@ -51,7 +51,6 @@ function registerAuthentication(registryData) {
       hideSpinner();
       window.location.href = './tasks.html';
     } else {
-      // Verificar uma forma de limpar o formulário sem recarregar a pagina
       window.location.href = './signup.html';
     }
   })
@@ -59,4 +58,4 @@ function registerAuthentication(registryData) {
       hideSpinner();
       console.log(error);
     });
-}
+};
