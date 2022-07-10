@@ -1,6 +1,5 @@
-const loginButton = document.getElementById('loginButton');
-
 // select all required elements
+const loginButton = document.getElementById('loginButton');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
 
@@ -51,8 +50,8 @@ loginPassword.addEventListener('keyup', () => {
 
 loginButton.addEventListener('click', (event) => {
   event.preventDefault();
-  mostrarSpinner();
+  showSpinner();
   loginObject.email = loginEmail.value;
   loginObject.password = loginPassword.value;
-  authentication(loginObject);
+  loginAuthentication(loginObject);
 });

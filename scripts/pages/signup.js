@@ -71,7 +71,7 @@ allFields.forEach((field, index) => {
 // creating the event for the button
 registryButton.addEventListener('click', (event) => {
   event.preventDefault();
-  mostrarSpinner();
+  showSpinner();
   if (allFields.every((field) => field.value)) {
     allFields.forEach((field) => {
       if (field.id !== 'passwordConfirm') {
@@ -80,6 +80,6 @@ registryButton.addEventListener('click', (event) => {
       }
     });
 
-    register(registryObject);
+    registerAuthentication(registryObject);
   }
 });

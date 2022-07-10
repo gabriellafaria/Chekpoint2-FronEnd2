@@ -8,14 +8,14 @@
   <title>To-Do App</title>
 
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
-  <link rel="stylesheet" href="styles/acesso.css">
+  <link rel="stylesheet" href="styles/access.css">
 
 </head>
 
 <body>
 
-  <div class="left">``
-    <img src="./assets/pessoa-signup.png" alt="">
+  <div class="left">
+    <img src="./assets/signup-person.png" alt="">
   </div>
   <div class="right">
     <form>
@@ -52,15 +52,15 @@
       <button id="registryButton">Criar conta</button>
 
     </form>
-    <div class="ingressar">
+    <div class="join">
       <a href="index.html">Já possui conta? Acesse aqui</a>
     </div>
   </div>
 
-  <script src="./scripts/loader.js"></script>
+  <script src="./scripts/utilities/animations.js"></script>
   <script src="./scripts/utilities/validations.js"></script>
-  <script src="./scripts/services/register.js"></script>
-  <script src="./scripts/signup/signup.js" type="module"></script>
+  <script src="./scripts/services/authentication.js"></script>
+  <script src="./scripts/pages/signup.js" type="module"></script>
 </body>
 
 </html>

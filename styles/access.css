@@ -75,7 +75,7 @@ small {
   color: grey;
   font-size: 2em;
 }
-.ingressar{
+.join{
   text-align: center;
 }
 .left{
@@ -154,6 +154,7 @@ small {
   }
  }
 
+ /*  --------- Media Query ------------ */
  @media (max-width: 540px) {
   form:after {
     width: 0.4em;
