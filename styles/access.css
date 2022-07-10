@@ -155,7 +155,7 @@ small {
  }
 
  /*  --------- Media Query ------------ */
- @media (max-width: 540px) {
+ @media (max-width: 538px) {
   form:after {
     width: 0.4em;
   }
@@ -164,7 +164,7 @@ small {
   }
   .left{
     max-width: 30%;
-    margin-right: 0.5em;
+    margin-right: 1.3em;
   }
   .left img{
     min-width: 85%;
