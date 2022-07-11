@@ -139,7 +139,7 @@ function deleteTask(e) {
 
 //CRUD (Update task)
 function editTask(id) {
-  const logDescription = document.getElementById(`task-${id}`)
+  const logDescription = document.getElementById(`task-${id}`);
 
   const edit = `
   <input id="name" placeholder="Insira mais de 5 letras"></input>
@@ -149,7 +149,7 @@ function editTask(id) {
   <button id="cancelButton" type="reset">
   <img src="./assets/cancel.png" alt="Cancelar task imagem">
   <button> 
-`
+  `
   let oldLogDescription = logDescription.innerHTML;
   logDescription.innerHTML = edit;
 
@@ -157,6 +157,8 @@ function editTask(id) {
   const editValidation = document.getElementById('editValidation');
   const editDescription = document.getElementById('name');
   const cancelButton = document.getElementById('cancelButton');
+
+  editDescription.value = `${oldLogDescription}`
 
   sendButton.addEventListener('click', () => {
     if (editDescription.value.length > 5) {
