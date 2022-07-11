@@ -169,15 +169,13 @@ function editTask(event, id) {
 
   sendButton.addEventListener('click', () => {
     if (editDescription.value.length > 5) {
-      task.description = editDescription.value;
-
       fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: token,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify({ description: editDescription.value }),
       })
         .then((response) => response.json())
         .then((_data) => {
