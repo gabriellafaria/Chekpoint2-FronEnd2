@@ -90,7 +90,7 @@ function createTaskHtml(taskData, isCompleted) {
         <p class="name-element" id="task-${taskData.id}">${taskData.description}</p>
         <p class="timestamp">Criada em: ${dateFormat(taskData.createdAt)}</p>
         <span class="delete" onclick="deleteTask(${taskData.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-        <span class="edit" onclick="editTask(${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+        <span class="edit" onclick="editTask(event, ${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>
       </div>
     </li>`;
   return tasks;
@@ -137,8 +137,11 @@ function deleteTask(e) {
     });
 }
 
-//CRUD (Update task)
-function editTask(id) {
+// CRUD (Update task)
+function editTask(event, id) {
+  const editButton = event.target.parentElement;
+  editButton.style.display = 'none';
+
   const logDescription = document.getElementById(`task-${id}`);
 
   const edit = `
@@ -152,9 +155,9 @@ function editTask(id) {
   <span class="validationEdit">
   <small id="editValidation"></small>
   </span>
-  `
+  `;
 
-  let oldLogDescription = logDescription.innerHTML;
+  const oldLogDescription = logDescription.innerHTML;
   logDescription.innerHTML = edit;
 
   const sendButton = document.getElementById('sendButton');
@@ -162,7 +165,7 @@ function editTask(id) {
   const editDescription = document.getElementById('name');
   const cancelButton = document.getElementById('cancelButton');
 
-  editDescription.value = `${oldLogDescription}`
+  editDescription.value = `${oldLogDescription}`;
 
   sendButton.addEventListener('click', () => {
     if (editDescription.value.length > 5) {
@@ -191,6 +194,7 @@ function editTask(id) {
   });
 
   cancelButton.addEventListener('click', () => {
-    logDescription.innerHTML = oldLogDescription
-  })
-};
+    logDescription.innerHTML = oldLogDescription;
+    editButton.style.display = 'inline-block';
+  });
+}
