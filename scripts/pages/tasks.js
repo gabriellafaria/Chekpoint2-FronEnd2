@@ -11,7 +11,7 @@ const task = {
   completed: false,
 };
 
-//task description validation
+// task description validation
 taskDescription.addEventListener('keyup', () => {
   const call = eventsTasks(taskDescription.value);
 
@@ -21,7 +21,7 @@ taskDescription.addEventListener('keyup', () => {
   validateTasks(taskDescription.value);
 });
 
-//rendering tasks on the page
+// rendering tasks on the page
 async function renderTasks() {
   await fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks', {
     method: 'GET',
@@ -63,10 +63,10 @@ window.onload = async function usersData() {
     if (response.status === 200) {
       const convert = await response.json();
       displayUserName(convert);
-      let avatar = document.querySelectorAll('.profileImg')
+      const avatar = document.querySelectorAll('.profileImg');
       avatar.forEach((image) => {
-        image.src = `https://robohash.org/${convert.firtName}_${convert.lastName}.png`
-      })
+        image.src = `https://robohash.org/${convert.firtName}_${convert.lastName}.png`;
+      });
     } else {
       throw new Error('Problema ao buscar o usuário');
     }
@@ -77,9 +77,9 @@ window.onload = async function usersData() {
   }
 };
 
-////////////////// applying CRUD operations to tasks
+/// /////////////// applying CRUD operations to tasks
 
-//CRUD (Create task - estructure)
+// CRUD (Create task - estructure)
 function createTaskHtml(taskData, isCompleted) {
   const tasks = `
     <li class="task-container">
@@ -96,7 +96,7 @@ function createTaskHtml(taskData, isCompleted) {
   return tasks;
 }
 
-//CRUD (Create task)
+// CRUD (Create task)
 function addTask(e) {
   e.preventDefault();
   task.description = taskDescription.value;
@@ -120,14 +120,14 @@ function addTask(e) {
 
 taskButton.addEventListener('click', addTask);
 
-//CRUD (Delete task)
+// CRUD (Delete task)
 function deleteTask(e) {
   const id = e;
   fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: token,
-    }
+    },
   })
     .then((response) => response.json())
     .then((_data) => {

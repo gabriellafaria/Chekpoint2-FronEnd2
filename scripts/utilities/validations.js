@@ -39,15 +39,15 @@ function dateFormat(date) {
     second: '2-digit',
   })).format(data);
 
-    return formated;
-};
+  return formated;
+}
 
-// validations for inclusion of tasks 
+// validations for inclusion of tasks
 function eventsTasks(task) {
-    return (!task) ? 'Insira descrição da tarefa' :
-        (task.length < 5) ? 'A descrição da tarefa tem que ter mais de cinco caracteres' : '';
-};
+  return (!task) ? 'Insira descrição da tarefa'
+    : (task.length < 5) ? 'A descrição da tarefa tem que ter mais de cinco caracteres' : '';
+}
 
 function validateTasks(tasks) {
-    (eventsTasks(tasks) === '') ? taskButton.removeAttribute("disabled") : taskButton.setAttribute("disabled", true);   
-};
+  (eventsTasks(tasks) === '') ? taskButton.removeAttribute('disabled') : taskButton.setAttribute('disabled', true);
+}

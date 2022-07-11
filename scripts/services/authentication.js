@@ -26,7 +26,7 @@ function loginAuthentication(loginData) {
     .catch((error) => {
       console.log(error);
     });
-};
+}
 
 function registerAuthentication(registryData) {
   const statusObject = {
@@ -41,8 +41,8 @@ function registerAuthentication(registryData) {
     },
     body: JSON.stringify(registryData),
   }).then((response) => {
-    if(response.status !== 201){
-    alert(statusObject[response.status])
+    if (response.status !== 201) {
+      alert(statusObject[response.status]);
     }
     return response.json();
   }).then((data) => {
@@ -58,4 +58,4 @@ function registerAuthentication(registryData) {
       hideSpinner();
       console.log(error);
     });
-};
+}
