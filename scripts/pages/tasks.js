@@ -145,11 +145,15 @@ function editTask(id) {
   <input id="name" placeholder="Insira mais de 5 letras"></input>
   <button id="sendButton" type="submit">
   <img src="./assets/send.png" alt="Editar task imagem">
-  <button>
+  </button>
   <button id="cancelButton" type="reset">
   <img src="./assets/cancel.png" alt="Cancelar task imagem">
-  <button> 
+  </button> 
+  <span class="validationEdit">
+  <small id="editValidation"></small>
+  </span>
   `
+
   let oldLogDescription = logDescription.innerHTML;
   logDescription.innerHTML = edit;
 
