@@ -39,6 +39,7 @@ a {
 .profileImg {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 #closeApp {
@@ -245,6 +246,7 @@ a {
   font-family: 'Lato', sans-serif;
   color: rgb(95 95 95);
   font-size: 0.9em;
+  width: 80%;
 }
 
 #name:focus {
@@ -254,6 +256,17 @@ a {
 
 #name::placeholder{
   color: lightgrey
+}
+
+.finishedTasks #name {
+  background-color: rgb(228 228 228);
+}
+
+#editValidation {
+  flex-wrap: wrap;
+  color: #CC000E;
+  background-color: #FFF;
+  display: block;
 }
 
 /* Tarefas terminadas ----------------------------------------------------------- */
@@ -331,7 +344,34 @@ a {
 }
 
 /*  --------- Media Query --------- */
-@media (max-width: 540px) {
+@media (max-width: 760px) {
+  #sendButton {
+    margin-top: 0.6em;
+    margin-right: 0.4em;
+  }
+  #name{
+    max-width: 9em;
+    width: 100%;
+  }
+  .task-container .name-element {
+    margin-right: 1.6em;
+    max-width: 7em;
+    flex-shrink: 1;
+    flex-basis: 200px;
+  }
+  .task-container .timestamp {
+    font-size: 0.8em;
+    margin-right: 0;
+    max-width: 5em;
+  }
+  .edit, .delete{
+    margin-left: 15px;
+    width: 0.7em;
+    height: 0.7em;
+  }
+}
+
+@media (max-width: 538px) {
   header{
     width: 100%;
     justify-content: space-around;
@@ -396,5 +436,6 @@ a {
   }
   #name{
     max-width: 9em;
+    width: 100%;
   }
 }

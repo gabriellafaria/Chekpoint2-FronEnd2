@@ -8,7 +8,7 @@ logout.addEventListener('click', () => {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Sim',
-    cancelButtonText: 'Não'
+    cancelButtonText: 'Não',
   }).then((result) => {
     if (result.isConfirmed) {
       sessionStorage.removeItem('token');

@@ -11,7 +11,7 @@ const task = {
   completed: false,
 };
 
-//task description validation
+// task description validation
 taskDescription.addEventListener('keyup', () => {
   const call = eventsTasks(taskDescription.value);
 
@@ -21,7 +21,7 @@ taskDescription.addEventListener('keyup', () => {
   validateTasks(taskDescription.value);
 });
 
-//rendering tasks on the page
+// rendering tasks on the page
 async function renderTasks() {
   await fetch('https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks', {
     method: 'GET',
@@ -63,10 +63,10 @@ window.onload = async function usersData() {
     if (response.status === 200) {
       const convert = await response.json();
       displayUserName(convert);
-      let avatar = document.querySelectorAll('.profileImg')
+      const avatar = document.querySelectorAll('.profileImg');
       avatar.forEach((image) => {
-        image.src = `https://robohash.org/${convert.firtName}_${convert.lastName}.png`
-      })
+        image.src = `https://robohash.org/${convert.firtName}_${convert.lastName}.png`;
+      });
     } else {
       throw new Error('Problema ao buscar o usuário');
     }
@@ -77,9 +77,9 @@ window.onload = async function usersData() {
   }
 };
 
-////////////////// applying CRUD operations to tasks
+/// /////////////// applying CRUD operations to tasks
 
-//CRUD (Create task - estructure)
+// CRUD (Create task - estructure)
 function createTaskHtml(taskData, isCompleted) {
   const tasks = `
     <li class="task-container">
@@ -90,13 +90,13 @@ function createTaskHtml(taskData, isCompleted) {
         <p class="name-element" id="task-${taskData.id}">${taskData.description}</p>
         <p class="timestamp">Criada em: ${dateFormat(taskData.createdAt)}</p>
         <span class="delete" onclick="deleteTask(${taskData.id})"><img src="./assets/delete.png" alt="Deletar task imagem"></span>
-        <span class="edit" onclick="editTask(${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>
+        <span class="edit" onclick="editTask(event, ${taskData.id})"><img src="./assets/editar.png" alt="Editar task"></span>
       </div>
     </li>`;
   return tasks;
 }
 
-//CRUD (Create task)
+// CRUD (Create task)
 function addTask(e) {
   e.preventDefault();
   task.description = taskDescription.value;
@@ -120,14 +120,14 @@ function addTask(e) {
 
 taskButton.addEventListener('click', addTask);
 
-//CRUD (Delete task)
+// CRUD (Delete task)
 function deleteTask(e) {
   const id = e;
   fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: token,
-    }
+    },
   })
     .then((response) => response.json())
     .then((_data) => {
@@ -137,20 +137,27 @@ function deleteTask(e) {
     });
 }
 
-//CRUD (Update task)
-function editTask(id) {
-  const logDescription = document.getElementById(`task-${id}`)
+// CRUD (Update task)
+function editTask(event, id) {
+  const editButton = event.target.parentElement;
+  editButton.style.display = 'none';
+
+  const logDescription = document.getElementById(`task-${id}`);
 
   const edit = `
   <input id="name" placeholder="Insira mais de 5 letras"></input>
   <button id="sendButton" type="submit">
   <img src="./assets/send.png" alt="Editar task imagem">
-  <button>
+  </button>
   <button id="cancelButton" type="reset">
   <img src="./assets/cancel.png" alt="Cancelar task imagem">
-  <button> 
-`
-  let oldLogDescription = logDescription.innerHTML;
+  </button> 
+  <span class="validationEdit">
+  <small id="editValidation"></small>
+  </span>
+  `;
+
+  const oldLogDescription = logDescription.innerHTML;
   logDescription.innerHTML = edit;
 
   const sendButton = document.getElementById('sendButton');
@@ -158,17 +165,17 @@ function editTask(id) {
   const editDescription = document.getElementById('name');
   const cancelButton = document.getElementById('cancelButton');
 
+  editDescription.value = `${oldLogDescription}`;
+
   sendButton.addEventListener('click', () => {
     if (editDescription.value.length > 5) {
-      task.description = editDescription.value;
-
       fetch(`https://ctd-fe2-todo-v2.herokuapp.com/v1/tasks/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: token,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify({ description: editDescription.value }),
       })
         .then((response) => response.json())
         .then((_data) => {
@@ -185,6 +192,7 @@ function editTask(id) {
   });
 
   cancelButton.addEventListener('click', () => {
-    logDescription.innerHTML = oldLogDescription
-  })
-};
+    logDescription.innerHTML = oldLogDescription;
+    editButton.style.display = 'inline-block';
+  });
+}
