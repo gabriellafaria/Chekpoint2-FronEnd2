@@ -83,3 +83,13 @@ registryButton.addEventListener('click', (event) => {
     registerAuthentication(registryObject);
   }
 });
+
+new Cleave('.input-5', {
+  numericOnly: true,
+  delimiters: ['.', '.', '-'],
+  blocks: [3, 3, 3, 2]
+});
+
+var cleaveDate = new Cleave('.input-date', {
+  date: true
+});

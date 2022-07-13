@@ -10,6 +10,8 @@
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
   <link rel="stylesheet" href="styles/access.css">
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body>
@@ -24,27 +26,35 @@
       </div>
 
       <label>
-        Nome:
+        Nome: *
         <input type="text" name="firstName" id="registryName">
       </label>
       <small id="nameValidation"></small>
       <label>
-        Sobrenome:
+        Sobrenome: *
         <input type="text" name="lastName" id="registrySurname">
       </label>
       <small id="surnameValidation"></small>
       <label>
-        Email:
+        Email: *
         <input type="email" name="email" id="registryEmail">
       </label>
       <small id="emailValidation"></small>
       <label>
-        Senha:
+        Data nascimento:
+        <input type="text" name="date" class="input-date">
+      </label>
+      <label>
+        CPF:
+        <input type="text" name="cpf" class="input-5">
+      </label>
+      <label>
+        Senha: *
         <input type="password" name="password" id="registryPassword">
       </label>
       <small id="passwordValidation"></small>
       <label>
-        Repetir senha:
+        Repetir senha: *
         <input type="password" id="passwordConfirm">
       </label>
       <small id="confirmValidation"></small>
